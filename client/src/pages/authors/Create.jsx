@@ -20,12 +20,12 @@ const Create = () => {
 
   const handleFormSubmission = () => {
     axios
-      .post('/api/autores', author)
+      .post('/api/authors', author)
       .then(() => {
         setRedirect(true)
       })
       .catch(() => {
-        alert('Ocurrió un error')
+        alert('Error')
       })
   }
 
@@ -45,20 +45,20 @@ const Create = () => {
   return (
     <>
       {redirect ? (
-        <Redirect to='/autores' push />
+        <Redirect to='/authors' push />
       ) : (
         <>
-          <Header as='h2'>Crear</Header>
+          <Header as='h2'>Create</Header>
           <Form widths='equal'>
             <Form.Group>
               <Form.Input
-                label='Nombre'
+                label='First Name'
                 name='givenName'
                 value={author.givenName}
                 onChange={handleInputChange}
               />
               <Form.Input
-                label='Apellido'
+                label='Last Name'
                 name='lastName'
                 value={author.lastName}
                 onChange={handleInputChange}
@@ -66,13 +66,13 @@ const Create = () => {
             </Form.Group>
             <Form.Group>
               <Form.Input
-                label='País'
+                label='Country'
                 name='country'
                 value={author.country}
                 onChange={handleInputChange}
               />
               <DateInput
-                label='Fecha de Nacimiento'
+                label='Date of Birth'
                 startMode='year'
                 popupPosition='bottom center'
                 name='birthdate'
@@ -90,19 +90,19 @@ const Create = () => {
             <Grid.Column width={8} textAlign='left'>
               <Button
                 color='teal'
-                content='Reiniciar'
+                content='Reset'
                 onClick={handleFormReset}
               />
             </Grid.Column>
             <Grid.Column width={8} textAlign='right'>
               <Button
                 color='red'
-                content='Cancelar'
+                content='Cancel'
                 onClick={handleFormCancellation}
               />
               <Button
                 color='green'
-                content='Guardar'
+                content='Submit'
                 onClick={handleFormSubmission}
               />
             </Grid.Column>

@@ -14,7 +14,7 @@ const Create = () => {
 
   const [authors, setAuthors] = useState([])
   useEffect(() => {
-    axios.get('/api/autores/').then(response => {
+    axios.get('/api/authors/').then(response => {
       setAuthors(
         response.data.map(author => ({
           text: `${author.givenName} ${author.lastName}`,
@@ -32,7 +32,7 @@ const Create = () => {
 
   const handleFormSubmission = () => {
     axios
-      .post('/api/libros', book)
+      .post('/api/books', book)
       .then(() => {
         setRedirect(true)
       })

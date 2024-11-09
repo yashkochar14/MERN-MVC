@@ -5,17 +5,19 @@ import { Button, Header, Grid, Table } from 'semantic-ui-react'
 
 const List = ({ match }) => {
   const [authors, setAuthors] = useState([])
+  
   const loadAuthors = () => {
-    axios.get('/api/autores/').then(response => {
+    axios.get('/api/authors/').then(response => {
       setAuthors(response.data)
     })
   }
+  
   useEffect(() => {
     loadAuthors()
   }, [])
 
   const deleteAuthor = _id => {
-    axios.delete(`/api/autores/${_id}`).then(() => {
+    axios.delete(`/api/authors/${_id}`).then(() => {
       loadAuthors()
     })
   }
@@ -24,20 +26,20 @@ const List = ({ match }) => {
     <>
       <Grid>
         <Grid.Column width={8} textAlign='left'>
-          <Header as='h2'>Lista</Header>
+          <Header as='h2'>List</Header>
         </Grid.Column>
         <Grid.Column width={8} textAlign='right'>
-          <Button color='green' as={Link} to={`${match.url}/crear`}>
-            Nuevo
+          <Button color='green' as={Link} to={`${match.url}/create`}>
+            New
           </Button>
         </Grid.Column>
       </Grid>
       <Table singleLine columns={4} striped>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell>Nombre</Table.HeaderCell>
-            <Table.HeaderCell>País</Table.HeaderCell>
-            <Table.HeaderCell>Fecha de Nacimiento</Table.HeaderCell>
+            <Table.HeaderCell>Name</Table.HeaderCell>
+            <Table.HeaderCell>Country</Table.HeaderCell>
+            <Table.HeaderCell>Date of Birth</Table.HeaderCell>
             <Table.HeaderCell />
           </Table.Row>
         </Table.Header>
@@ -59,10 +61,10 @@ const List = ({ match }) => {
                     as={Link}
                     to={`${match.url}/${_id}`}
                   >
-                    Editar
+                    Edit
                   </Button>
                   <Button basic color='red' onClick={() => deleteAuthor(_id)}>
-                    Eliminar
+                    Delete
                   </Button>
                 </Table.Cell>
               </Table.Row>

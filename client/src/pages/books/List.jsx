@@ -6,7 +6,7 @@ import { Button, Header, Grid, Table } from 'semantic-ui-react'
 const List = ({ match }) => {
   const [books, setBooks] = useState([])
   const loadBooks = () => {
-    axios.get('/api/libros/').then(response => {
+    axios.get('/api/books/').then(response => {
       setBooks(response.data)
     })
   }
@@ -15,7 +15,7 @@ const List = ({ match }) => {
   }, [])
 
   const deleteBook = _id => {
-    axios.delete(`/api/libros/${_id}`).then(() => {
+    axios.delete(`/api/books/${_id}`).then(() => {
       loadBooks()
     })
   }

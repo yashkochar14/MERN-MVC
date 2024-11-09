@@ -11,8 +11,9 @@ const Update = ({ match }) => {
     country: '',
     birthdate: ''
   })
+  
   useEffect(() => {
-    axios.get(`/api/autores/${match.params._id}`).then(response => {
+    axios.get(`/api/authors/${match.params._id}`).then(response => {
       response.data.birthdate = response.data.birthdate.slice(0, 10)
       setAuthor(response.data)
     })
@@ -26,12 +27,12 @@ const Update = ({ match }) => {
 
   const handleFormSubmission = () => {
     axios
-      .put(`/api/autores/${match.params._id}`, author)
+      .put(`/api/authors/${match.params._id}`, author)
       .then(() => {
         setRedirect(true)
       })
       .catch(() => {
-        alert('Ocurrió un error')
+        alert('An error occurred')
       })
   }
 
@@ -42,20 +43,20 @@ const Update = ({ match }) => {
   return (
     <>
       {redirect ? (
-        <Redirect to='/autores' push />
+        <Redirect to='/authors' push />
       ) : (
         <>
-          <Header as='h2'>Editar</Header>
+          <Header as='h2'>Edit</Header>
           <Form widths='equal'>
             <Form.Group>
               <Form.Input
-                label='Nombre'
+                label='First Name'
                 name='givenName'
                 value={author.givenName}
                 onChange={handleInputChange}
               />
               <Form.Input
-                label='Apellido'
+                label='Last Name'
                 name='lastName'
                 value={author.lastName}
                 onChange={handleInputChange}
@@ -63,13 +64,13 @@ const Update = ({ match }) => {
             </Form.Group>
             <Form.Group>
               <Form.Input
-                label='País'
+                label='Country'
                 name='country'
                 value={author.country}
                 onChange={handleInputChange}
               />
               <DateInput
-                label='Fecha de Nacimiento'
+                label='Date of Birth'
                 startMode='year'
                 popupPosition='bottom center'
                 name='birthdate'
@@ -86,12 +87,12 @@ const Update = ({ match }) => {
           <Container textAlign='right'>
             <Button
               color='red'
-              content='Cancelar'
+              content='Cancel'
               onClick={handleFormCancellation}
             />
             <Button
               color='green'
-              content='Guardar'
+              content='Save'
               onClick={handleFormSubmission}
             />
           </Container>
