@@ -12,7 +12,7 @@ exports.list = (req, res) => {
 };
 
 exports.details = (req, res) => {
-  Author.findById(req.params.id) // Changed _id to id
+  Author.findById(req.params.id)
     .then(data => {
       res.status(200).send(data);
     })

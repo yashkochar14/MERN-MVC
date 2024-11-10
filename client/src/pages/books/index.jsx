@@ -10,12 +10,12 @@ const Books = ({ match }) => {
   return (
     <>
       <Header as='h1' textAlign='center'>
-        Libros
+        Books
       </Header>
       <Segment>
         <Switch>
           <Route exact path={match.path} component={List} />
-          <Route path={`${match.path}/crear`} component={Create} />
+          <Route path={`${match.path}/create`} component={Create} />
           <Route path={`${match.path}/:_id`} component={Update} />
         </Switch>
       </Segment>

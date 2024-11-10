@@ -3,9 +3,10 @@ const mongoose = require('mongoose')
 
 const authors = require('./routes/authors')
 const books = require('./routes/books')
+const genre = require('./routes/genre')
 
 const port = 5000
-const mongo_uri = 'mongodb+srv://katregunjan21:GunjanID$$9876@cluster0.d5io4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+const mongo_uri = 'mongodb+srv://katregunjan:dbpass@cluster0.nwngb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
 
 mongoose.connect(mongo_uri, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
   .then(() => {
@@ -23,6 +24,7 @@ app.use(cors());
 app.use(express.json())
 app.use('/api/authors', authors)
 app.use('/api/books', books)
+app.use('/api/genre', genre)
 
 app.listen(port, () => {
   console.log(`Server started at http://localhost:${port}`)

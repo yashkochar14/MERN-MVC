@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Redirect } from 'react-router-dom'
-import { Button, Form, Grid, Header } from 'semantic-ui-react'
+import { Form, Button, Container, Header } from 'semantic-ui-react'
 import { DateInput } from 'semantic-ui-calendar-react'
 
 const Create = () => {
@@ -11,66 +11,65 @@ const Create = () => {
     genre: '',
     publicationDate: ''
   })
+  const [redirect, setRedirect] = useState(false);
+  const [authors, setAuthors] = useState([]);
 
-  const [authors, setAuthors] = useState([])
   useEffect(() => {
-    axios.get('/api/authors/').then(response => {
-      setAuthors(
-        response.data.map(author => ({
-          text: `${author.givenName} ${author.lastName}`,
-          value: author._id
-        }))
-      )
-    })
+    let isMounted = true // Track if component is mounted
+
+    axios.get('/api/authors/')
+      .then(response => {
+        if (isMounted) {
+          setAuthors(
+            response.data.map(author => ({
+              text: `${author.givenName} ${author.lastName}`,
+              value: author._id
+            }))
+          )
+        }
+      })
+      .catch(() => {
+        if (isMounted) {
+          console.error('Error fetching authors')
+        }
+      })
+
+    return () => {
+      isMounted = false // Cleanup function to set mounted status to false
+    }
   }, [])
 
-  const [redirect, setRedirect] = useState(false)
-
   const handleInputChange = (event, { name, value }) => {
-    setBook(previousValue => ({ ...previousValue, [name]: value }))
+    setBook(prevValue => ({ ...prevValue, [name]: value }))
   }
 
   const handleFormSubmission = () => {
-    axios
-      .post('/api/books', book)
-      .then(() => {
-        setRedirect(true)
-      })
-      .catch(() => {
-        alert('Ocurrió un error')
-      })
+    axios.post('/api/books', book)
+      .then(() => setRedirect(true))
+      .catch(() => alert('An error occurred'))
   }
 
   const handleFormCancellation = () => {
     setRedirect(true)
   }
 
-  const handleFormReset = () => {
-    setBook({
-      title: '',
-      author: '',
-      genre: '',
-      publicationDate: ''
-    })
-  }
-
   return (
     <>
       {redirect ? (
-        <Redirect to='/libros' push />
+        <Redirect to='/books' push />
       ) : (
         <>
-          <Header as='h2'>Crear</Header>
+          <Header as='h2'>Create Book</Header>
           <Form widths='equal'>
             <Form.Group>
               <Form.Input
-                label='Título'
+                label='Title'
                 name='title'
                 value={book.title}
                 onChange={handleInputChange}
               />
               <Form.Select
-                label='Autor'
+                label='Author'
                 name='author'
                 options={authors}
                 value={book.author}
@@ -79,13 +78,13 @@ const Create = () => {
             </Form.Group>
             <Form.Group>
               <Form.Input
-                label='Género'
+                label='Genre'
                 name='genre'
                 value={book.genre}
                 onChange={handleInputChange}
               />
               <DateInput
-                label='Fecha de Publicación'
+                label='Publication Date'
                 startMode='year'
                 popupPosition='bottom center'
                 name='publicationDate'
@@ -99,27 +98,10 @@ const Create = () => {
               />
             </Form.Group>
           </Form>
-          <Grid stackable>
-            <Grid.Column width={8} textAlign='left'>
-              <Button
-                color='teal'
-                content='Reiniciar'
-                onClick={handleFormReset}
-              />
-            </Grid.Column>
-            <Grid.Column width={8} textAlign='right'>
-              <Button
-                color='red'
-                content='Cancelar'
-                onClick={handleFormCancellation}
-              />
-              <Button
-                color='green'
-                content='Guardar'
-                onClick={handleFormSubmission}
-              />
-            </Grid.Column>
-          </Grid>
+          <Container textAlign='right'>
+            <Button color='red' content='Cancel' onClick={handleFormCancellation} />
+            <Button color='green' content='Save' onClick={handleFormSubmission} />
+          </Container>
         </>
       )}
     </>

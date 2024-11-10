@@ -11,16 +11,21 @@ const Update = ({ match }) => {
     genre: '',
     publicationDate: ''
   })
+
   useEffect(() => {
-    axios.get(`/api/libros/${match.params._id}`).then(response => {
-      response.data.publicationDate = response.data.publicationDate.slice(0, 10)
-      setBook(response.data)
+    axios.get(`/api/books/${match.params._id}`).then(response => {
+      const bookData = response.data
+      bookData.publicationDate = bookData.publicationDate
+        ? bookData.publicationDate.slice(0, 10)
+        : ''
+      setBook(bookData)
     })
   }, [match])
 
   const [authors, setAuthors] = useState([])
+
   useEffect(() => {
-    axios.get('/api/autores/').then(response => {
+    axios.get('/api/authors/').then(response => {
       setAuthors(
         response.data.map(author => ({
           text: `${author.givenName} ${author.lastName}`,
@@ -38,13 +43,9 @@ const Update = ({ match }) => {
 
   const handleFormSubmission = () => {
     axios
-      .put(`/api/libros/${match.params._id}`, book)
-      .then(() => {
-        setRedirect(true)
-      })
-      .catch(() => {
-        alert('Ocurrió un error')
-      })
+      .put(`/api/books/${match.params._id}`, book)
+      .then(() => setRedirect(true))
+      .catch(() => alert('An error occurred'))
   }
 
   const handleFormCancellation = () => {
@@ -54,35 +55,35 @@ const Update = ({ match }) => {
   return (
     <>
       {redirect ? (
-        <Redirect to='/libros' push />
+        <Redirect to='/books' push />
       ) : (
         <>
-          <Header as='h2'>Editar</Header>
+          <Header as='h2'>Edit Book</Header>
           <Form widths='equal'>
             <Form.Group>
               <Form.Input
-                label='Título'
+                label='Title'
                 name='title'
-                value={book.title}
+                value={book.title || ''}
                 onChange={handleInputChange}
               />
               <Form.Select
-                label='Autor'
+                label='Author'
                 name='author'
                 options={authors}
-                value={book.author}
+                value={book.author || ''}
                 onChange={handleInputChange}
               />
             </Form.Group>
             <Form.Group>
               <Form.Input
-                label='Género'
+                label='Genre'
                 name='genre'
-                value={book.genre}
+                value={book.genre || ''}
                 onChange={handleInputChange}
               />
               <DateInput
-                label='Fecha de Publicación'
+                label='Publication Date'
                 startMode='year'
                 popupPosition='bottom center'
                 name='publicationDate'
@@ -91,22 +92,14 @@ const Update = ({ match }) => {
                 closable
                 icon={false}
                 dateFormat='YYYY-MM-DD'
-                value={book.publicationDate}
+                value={book.publicationDate || ''}  // Ensures value is always a string
                 onChange={handleInputChange}
               />
             </Form.Group>
           </Form>
           <Container textAlign='right'>
-            <Button
-              color='red'
-              content='Cancelar'
-              onClick={handleFormCancellation}
-            />
-            <Button
-              color='green'
-              content='Guardar'
-              onClick={handleFormSubmission}
-            />
+            <Button color='red' content='Cancel' onClick={handleFormCancellation} />
+            <Button color='green' content='Save' onClick={handleFormSubmission} />
           </Container>
         </>
       )}
@@ -114,4 +107,4 @@ const Update = ({ match }) => {
   )
 }
 
-export default Update
+export default Update;

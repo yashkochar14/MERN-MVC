@@ -24,21 +24,21 @@ const List = ({ match }) => {
     <>
       <Grid>
         <Grid.Column width={8} textAlign='left'>
-          <Header as='h2'>Lista</Header>
+          <Header as='h2'>List</Header>
         </Grid.Column>
         <Grid.Column width={8} textAlign='right'>
-          <Button color='green' as={Link} to={`${match.url}/crear`}>
-            Nuevo
+          <Button color='green' as={Link} to={`${match.url}/create`}>
+            New
           </Button>
         </Grid.Column>
       </Grid>
       <Table singleLine columns={4} striped>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell>Título</Table.HeaderCell>
-            <Table.HeaderCell>Autor</Table.HeaderCell>
-            <Table.HeaderCell>Género</Table.HeaderCell>
-            <Table.HeaderCell>Fecha de Publicación</Table.HeaderCell>
+            <Table.HeaderCell>Title</Table.HeaderCell>
+            <Table.HeaderCell>Author</Table.HeaderCell>
+            <Table.HeaderCell>Genre</Table.HeaderCell>
+            <Table.HeaderCell>Publication Date</Table.HeaderCell>
             <Table.HeaderCell />
           </Table.Row>
         </Table.Header>
@@ -65,10 +65,10 @@ const List = ({ match }) => {
                     as={Link}
                     to={`${match.url}/${_id}`}
                   >
-                    Editar
+                    Edit
                   </Button>
                   <Button basic color='red' onClick={() => deleteBook(_id)}>
-                    Eliminar
+                    Delete
                   </Button>
                 </Table.Cell>
               </Table.Row>
