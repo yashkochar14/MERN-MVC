@@ -8,12 +8,13 @@ const Home = () => {
   useEffect(() => {
     axios.get('https://mern-mvc.onrender.com/api/books')
       .then(response => {
+        console.log(response.data);
         setBooks(response.data);
       })
       .catch(() => {
         console.error('Error fetching books data');
       });
-  }, []);
+  }, []);  
 
   return (
     <>
@@ -32,7 +33,7 @@ const Home = () => {
           </Table.Header>
 
           <Table.Body>
-            {books.map(book => (
+            {Array.isArray(books) && books.map(book => (
               <Table.Row key={book._id}>
                 <Table.Cell>{book.title}</Table.Cell>
                 <Table.Cell>{book.author ? `${book.author.givenName} ${book.author.lastName}` : 'Unknown'}</Table.Cell>
