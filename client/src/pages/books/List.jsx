@@ -6,7 +6,7 @@ import { Button, Header, Grid, Table } from 'semantic-ui-react'
 const List = ({ match }) => {
   const [books, setBooks] = useState([])
   const loadBooks = () => {
-    axios.get('/api/books/').then(response => {
+    axios.get('https://mern-mvc.onrender.com/api/books/').then(response => {
       setBooks(response.data)
     })
   }
@@ -15,7 +15,7 @@ const List = ({ match }) => {
   }, [])
 
   const deleteBook = _id => {
-    axios.delete(`/api/books/${_id}`).then(() => {
+    axios.delete(`https://mern-mvc.onrender.com/api/books/${_id}`).then(() => {
       loadBooks()
     })
   }

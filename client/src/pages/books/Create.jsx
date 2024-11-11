@@ -17,7 +17,7 @@ const Create = () => {
   useEffect(() => {
     let isMounted = true // Track if component is mounted
 
-    axios.get('/api/authors/')
+    axios.get('https://mern-mvc.onrender.com/api/authors/')
       .then(response => {
         if (isMounted) {
           setAuthors(
@@ -44,7 +44,7 @@ const Create = () => {
   }
 
   const handleFormSubmission = () => {
-    axios.post('/api/books', book)
+    axios.post('https://mern-mvc.onrender.com/api/books', book)
       .then(() => setRedirect(true))
       .catch(() => alert('An error occurred'))
   }

@@ -7,7 +7,7 @@ const List = ({ match }) => {
   const [authors, setAuthors] = useState([])
   
   const loadAuthors = () => {
-    axios.get('/api/authors/').then(response => {
+    axios.get('https://mern-mvc.onrender.com/api/authors/').then(response => {
       setAuthors(response.data)
     })
   }
@@ -17,7 +17,7 @@ const List = ({ match }) => {
   }, [])
 
   const deleteAuthor = _id => {
-    axios.delete(`/api/authors/${_id}`).then(() => {
+    axios.delete(`https://mern-mvc.onrender.com/api/authors/${_id}`).then(() => {
       loadAuthors()
     })
   }

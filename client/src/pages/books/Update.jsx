@@ -13,7 +13,7 @@ const Update = ({ match }) => {
   })
 
   useEffect(() => {
-    axios.get(`/api/books/${match.params._id}`).then(response => {
+    axios.get(`https://mern-mvc.onrender.com/api/books/${match.params._id}`).then(response => {
       const bookData = response.data
       bookData.publicationDate = bookData.publicationDate
         ? bookData.publicationDate.slice(0, 10)
@@ -25,7 +25,7 @@ const Update = ({ match }) => {
   const [authors, setAuthors] = useState([])
 
   useEffect(() => {
-    axios.get('/api/authors/').then(response => {
+    axios.get('https://mern-mvc.onrender.com/api/authors/').then(response => {
       setAuthors(
         response.data.map(author => ({
           text: `${author.givenName} ${author.lastName}`,
@@ -43,7 +43,7 @@ const Update = ({ match }) => {
 
   const handleFormSubmission = () => {
     axios
-      .put(`/api/books/${match.params._id}`, book)
+      .put(`https://mern-mvc.onrender.com/api/books/${match.params._id}`, book)
       .then(() => setRedirect(true))
       .catch(() => alert('An error occurred'))
   }

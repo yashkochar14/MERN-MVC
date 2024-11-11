@@ -18,7 +18,7 @@ const Update = ({ match }) => {
   useEffect(() => {
     console.log("Fetching author data for ID:", match.params._id);
     axios
-      .get(`/api/authors/${match.params._id}`)
+      .get(`https://mern-mvc.onrender.com/api/authors/${match.params._id}`)
       .then((response) => {
         if (response.data && Object.keys(response.data).length > 0) {
           const data = response.data;
@@ -45,7 +45,7 @@ const Update = ({ match }) => {
 
   const handleFormSubmission = () => {
     axios
-      .put(`/api/authors/${match.params._id}`, author)
+      .put(`https://mern-mvc.onrender.com/api/authors/${match.params._id}`, author)
       .then(() => {
         setRedirect(true);
       })
