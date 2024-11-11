@@ -14,7 +14,7 @@ const Create = () => {
     };
 
     const handleFormSubmission = () => {
-        axios.post('/api/genre', genre)
+        axios.post('https://mern-mvc.onrender.com/api/genre', genre)
             .then(() => setRedirect(true))
             .catch(() => alert('An error occurred'))
     };

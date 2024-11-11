@@ -9,7 +9,7 @@ const Update = ({ match }) => {
     });
 
     useEffect(() => {
-        axios.get(`/api/books/${match.params._id}`).then(response => {
+        axios.get(`https://mern-mvc.onrender.com/api/books/${match.params._id}`).then(response => {
             const genreData = response.data;
             setGenre(genreData);
         })
@@ -23,7 +23,7 @@ const Update = ({ match }) => {
 
     const handleFormSubmission = () => {
         axios
-            .put(`/api/genre/${match.params._id}`, genre)
+            .put(`https://mern-mvc.onrender.com/api/genre/${match.params._id}`, genre)
             .then(() => setRedirect(true))
             .catch(() => alert('An error occurred'))
     };

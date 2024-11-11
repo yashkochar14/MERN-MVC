@@ -6,7 +6,7 @@ import { Button, Header, Grid, Table } from 'semantic-ui-react';
 const List = ({ match }) => {
     const [genre, setGenre] = useState([])
     const loadGenres = () => {
-        axios.get('/api/genre').then(response => {
+        axios.get('https://mern-mvc.onrender.com/api/genre').then(response => {
             setGenre(response.data)
         })
     }
@@ -16,7 +16,7 @@ const List = ({ match }) => {
     }, [])
 
     const deleteGenre = _id => {
-        axios.delete(`/api/genre/${_id}`).then(() => {
+        axios.delete(`https://mern-mvc.onrender.com/api/genre/${_id}`).then(() => {
             loadGenres()
         })
     }
