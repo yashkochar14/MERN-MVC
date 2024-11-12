@@ -19,7 +19,7 @@ const Home = () => {
   return (
     <>
       <Header as='h1' textAlign='center'>
-        List of Books Gunjan Katre Cloud Computing CA-2
+       Yash Kochar Computing CA-2
       </Header>
       <Container text textAlign='justified'>
         <Table celled>
